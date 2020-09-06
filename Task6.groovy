@@ -7,8 +7,14 @@ job("task6_job1"){
     scm("* * * * *")
   }
   steps{
-    shell('''sleep 10;
-date ;''')
+    shell('''if ls /root/.jenkins/workspace/ | grep task3_data
+then
+  cp -rf * /root/.jenkins/workspace/task3_data/
+  echo "folder created"
+else
+  sudo mkdir /root/.jenkins/workspace/task3_data
+  cp -rf * /root/.jenkins/workspace/task3_data/
+fi''')
     shell('date')
     }
 }
